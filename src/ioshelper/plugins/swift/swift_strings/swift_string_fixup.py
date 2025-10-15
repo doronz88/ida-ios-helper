@@ -22,7 +22,7 @@ OBJECT_OFFSET = 0x20
 
 
 def _log_error(message: str) -> None:
-    print(f'[SwiftStringsHook] [ERROR] {message}')
+    print(f"[SwiftStringsHook] [ERROR] {message}")
 
 
 # --------- Low-level helpers: reading/decoding ---------
@@ -127,7 +127,7 @@ def _find_prior_complementary_assignment(
             parent = _parent.to_specific_type
         except Exception:
             # Some parents can be null/invalid in edge cases
-            _log_error('Failed to get parent')
+            _log_error("Failed to get parent")
             continue
 
         # If we're entering a statement wrapper for our expression, promote it to cinsn_t
@@ -136,7 +136,7 @@ def _find_prior_complementary_assignment(
                 if isinstance(cur, cexpr_t) and parent.cexpr == cur:
                     cur = parent  # promote to cinsn_t
             except Exception:
-                _log_error('Failed in cit_expr')
+                _log_error("Failed in cit_expr")
             # Keep walking up
             continue
 
@@ -158,7 +158,7 @@ def _find_prior_complementary_assignment(
                 cur = parent
             except Exception:
                 cur = parent
-                _log_error('Failed in cot_comma')
+                _log_error("Failed in cot_comma")
             continue
 
         # Block: scan earlier statements
@@ -178,7 +178,7 @@ def _find_prior_complementary_assignment(
                                     return cand, ("block", parent, j)
                         break
             except Exception:
-                _log_error('Failed in cit_block')
+                _log_error("Failed in cit_block")
             cur = parent
             continue
 
